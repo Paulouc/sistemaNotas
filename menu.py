@@ -1,4 +1,5 @@
 import alumno as al
+import json
 
 
 def menu():
@@ -15,14 +16,15 @@ def menu():
                     print("======== MENU ALUMNOS ==========")
                     print("1. Agregar Alumnos")
                     print("2. Listar Alumnos")
-                    print("3. Volver al menu principal")
+                    print("3. Eliminar Alumnos")
+                    print(" . Volver al menu principal")
                     opcionAlumno = input("Ingrese una opcion: ")
                     match opcionAlumno:
                         case "1":
                             al.agregarAlumno()
+                            break
                         case "2":
-                            for alumno in al.alumnos:
-                                print(alumno)
+                            al.listarAlumnos()
                         case "3":
                             break
                         case _:
@@ -32,6 +34,7 @@ def menu():
                     print("======== MENU NOTAS ==========")
                     print("1. Agregar Notas")
                     print("2. Ver Notas")
+                    print("3. Eliminar nota")
                     # promedio = lambda l: sum(l)/len(l) if len(l) > 0 else 0
                     # notaAlta = lambda l: max(l) if len(l) > 0 else 0
                     # notaBaja = lambda l: min(l) if len(l) > 0 else 0
@@ -40,10 +43,7 @@ def menu():
                     match opcioNota:
                         case "1":
                             nombreAlumno = input("Ingrese el nombre del alumno: ")
-                            if nombreAlumno in al.alumnos:
-                                al.AgregarNotas(nombreAlumno)
-                            else:
-                                print("El alumno no existe")
+                            al.AgregarNotas(nombreAlumno)
                         case "2":
                             print(al.alumnos)
                         case "3":
@@ -58,9 +58,9 @@ def menu():
                     match opcionAsign:
                         case "1":
                             asign = input("Ingrese el Nombre de la Nueva Asignatura: ")
-                            al.nuevAsignatura(asign)
+                            al.nuevAsignatura(str(asign))
                         case "2":
-                            print(al.alumnos)
+                            print(al.asignaturas)
                         case "3":
                             break
             case "4":

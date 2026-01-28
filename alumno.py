@@ -1,5 +1,7 @@
-alumnos = {}
-asignaturas = ["matematicas", "lenguaje", "ciencias"]
+import cargarDatos as cd
+
+alumnos = cd.getdatos()
+asignaturas = cd.getasignaturas()
 
 
 def ValidarNombreAlumno(nombre):
@@ -15,21 +17,28 @@ def ValidarNombreAlumno(nombre):
         return False
 
 
-def validarAsignatura(asignatura):
-    if asignatura in asignaturas:
+def listarAlumnos():
+    for nombre in alumnos:
+        print(nombre)
+
+
+def validarAsignatura(asignatura: str):
+    if asignatura.lower() in asignaturas:
         return True
     else:
         return False
 
 
-def nuevAsignatura(asignatura):
-    if asignatura == "" or not str(asignatura).isdigit():
-        print("Ingrese un Nombre Valido para la Nueva Asignatura")
+def nuevAsignatura(asignatura: str):
+    if asignatura == "" or asignatura.isdigit():
+        return print("Ingrese un Nombre Valido para la Nueva Asignatura")
 
     elif validarAsignatura(asignatura):
         print("La Asignatura ya se Encuentra Registrada")
     else:
         asignaturas.append(asignatura)
+        cd.setasignaturas(asignaturas)
+        cd.getasignaturas()
         print("Nueva Asignatura Registrada")
 
 
@@ -48,37 +57,56 @@ def validaNota(cadena):
 
 def agregarAlumno():
     print("********* AGREGAR ALUMNO *********")
-    while True:
-        nombre = input("Ingrese el nombre del alumno: ")
-        if ValidarNombreAlumno(nombre):
+    nombre = input("Ingrese el nombre del alumno: ")
+    if ValidarNombreAlumno(nombre):
+        if nombre not in alumnos:
             alumnos[nombre] = {}
-            print(alumnos)
-            break
+            # alumnos = {nombre: {"": []}}
+            cd.setdatos(alumnos)
+            print("Alumno Agregado")
+            cd.getdatos()
+            print(cd.getdatos())
+
+        else:
+            print("El alumno ya se encuentra registrado")
 
 
 def AgregarNotas(nombreAlumno):
     print("********* AGREGAR NOTAS *********")
-    if nombreAlumno not in alumnos:
-        alumnos[nombreAlumno] = {}
     while True:
-        asign = (
-            input(f"asignaturas: {asignaturas} \nIngrese el nombre de la asignatura: ")
-            .lower()
-            .strip()
-        )
-        if validarAsignatura(asign):
-            if asign not in alumnos[nombreAlumno]:
-                alumnos[nombreAlumno][asign] = []
-            nota = input("Ingrese la nota: ")
-            if validaNota(nota):
-                # agrega una nota a la lista dentro de alumnos[nombreAlumno][asign][nota]
-                alumnos[nombreAlumno][asign].append(nota)
-                opcion = input(
-                    "nota agregada correctamente, desea agregar otra? S/N... "
-                ).lower()
-                if opcion == "s":
-                    continue
+        if nombreAlumno in alumnos:
+            asign = input(
+                f"asignaturas: {asignaturas} \nIngrese el nombre de la asignatura: "
+            ).strip()
+            print(asign)
+            if validarAsignatura(asign):
+                if "" in alumnos[nombreAlumno]:
+                    alumnos[nombreAlumno].pop("")
+                    alumnos[nombreAlumno][asign] = []
+
+                elif asign not in alumnos[nombreAlumno]:
+                    alumnos[nombreAlumno][asign] = []
+
+                cd.setdatos(alumnos)
+                cd.getdatos()
+                print(alumnos)
+                nota = input("Ingrese la nota: ")
+                if validaNota(nota):  # retorna True si la asignatura esta registrada
+                    # agrega una nota a la lista dentro de alumnos[nombreAlumno][asign][nota]
+                    alumnos[nombreAlumno][asign].append(nota)
+                    cd.setdatos(alumnos)
+                    cd.getdatos()
+                    print(alumnos)
+                    ####  Agregar codigo para guardar lista dentro de documento json
+                    opcion = input(
+                        "nota agregada correctamente, desea agregar otra? S/N... "
+                    ).lower()
+                    if opcion == "s":
+                        continue
+                    else:
+                        break
                 else:
-                    break
-            else:
-                print("Ingrese una nota valida")
+                    print("Ingrese una nota valida")
+        else:
+            print("El alumno no existe")
+            break

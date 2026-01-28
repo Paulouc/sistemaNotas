@@ -1,0 +1,24 @@
+{
+    "Paulo": {
+        "matematicas": [
+            "5",
+            "6.9"
+        ],
+        "ciencias": [
+            "6"
+        ],
+        "lenguaje": [
+            "5.5"
+        ]
+    },
+    "Luciana": {
+        "ciencias": [
+            "7",
+            "6.8"
+        ],
+        "fisica": [
+            "5.5"
+        ]
+    },
+    "Lorena": {}
+}
