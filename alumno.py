@@ -1,9 +1,10 @@
-import cargarDatos as cd
+import cargarDatos as cd  # se importa el archivo cargarDatos con las conexiones a los archivos json
 
-alumnos = cd.getdatos()
-asignaturas = cd.getasignaturas()
+alumnos = cd.getdatos()  # extrae los datos de los alumnos
+asignaturas = cd.getasignaturas()  # extrae los datos de las asignaturas
 
 
+# Metodo para validar que solo acepte espacios y letras
 def ValidarNombreAlumno(nombre):
     if nombre == "":
         print("Debe ingresar un nombre")
@@ -17,96 +18,44 @@ def ValidarNombreAlumno(nombre):
         return False
 
 
-def listarAlumnos():
+def listarAlumnos():  # metodo que lista los nombres de los alumnos
     for nombre in alumnos:
         print(nombre)
 
 
-def validarAsignatura(asignatura: str):
-    if asignatura.lower() in asignaturas:
-        return True
-    else:
-        return False
-
-
-def nuevAsignatura(asignatura: str):
-    if asignatura == "" or asignatura.isdigit():
-        return print("Ingrese un Nombre Valido para la Nueva Asignatura")
-
-    elif validarAsignatura(asignatura):
-        print("La Asignatura ya se Encuentra Registrada")
-    else:
-        asignaturas.append(asignatura)
-        cd.setasignaturas(asignaturas)
-        cd.getasignaturas()
-        print("Nueva Asignatura Registrada")
-
-
-def validaNota(cadena):
-    try:
-        # Reemplazamos coma por punto para que Python lo entienda como decimal
-        float(cadena.replace(",", "."))
-        if 1.0 <= float(cadena) <= 7.0:
-            return True
-        else:
-            print("La nota debe estar entre 1.0 y 7.0")
-            return False
-    except ValueError:
-        return False
-
-
-def agregarAlumno():
+def agregarAlumno():  # metodo para agregar alumnos
+    print("**********************************")
     print("********* AGREGAR ALUMNO *********")
-    nombre = input("Ingrese el nombre del alumno: ")
-    if ValidarNombreAlumno(nombre):
-        if nombre not in alumnos:
-            alumnos[nombre] = {}
-            # alumnos = {nombre: {"": []}}
-            cd.setdatos(alumnos)
+    print("**********************************")
+    nombre = input("Ingrese el nombre del alumno: ").capitalize().strip()
+    if ValidarNombreAlumno(
+        nombre
+    ):  # se toma el nombre ingresado por teclado y se valida que solo sean espacios o letras
+        if (
+            nombre not in alumnos
+        ):  # si el nombre no esta en alumnos se agrega en la linea de abajo
+            alumnos[nombre.capitalize().strip()] = {}
+            cd.setdatos(alumnos)  # se cargan los datos a json
             print("Alumno Agregado")
-            cd.getdatos()
-            print(cd.getdatos())
-
-        else:
+            cd.getdatos()  # se actualizan los datos de alumnos
+            print(nombre)
+        else:  # si el nombre esta en la lista imprime error
             print("El alumno ya se encuentra registrado")
 
 
-def AgregarNotas(nombreAlumno):
-    print("********* AGREGAR NOTAS *********")
-    while True:
-        if nombreAlumno in alumnos:
-            asign = input(
-                f"asignaturas: {asignaturas} \nIngrese el nombre de la asignatura: "
-            ).strip()
-            print(asign)
-            if validarAsignatura(asign):
-                if "" in alumnos[nombreAlumno]:
-                    alumnos[nombreAlumno].pop("")
-                    alumnos[nombreAlumno][asign] = []
-
-                elif asign not in alumnos[nombreAlumno]:
-                    alumnos[nombreAlumno][asign] = []
-
-                cd.setdatos(alumnos)
-                cd.getdatos()
-                print(alumnos)
-                nota = input("Ingrese la nota: ")
-                if validaNota(nota):  # retorna True si la asignatura esta registrada
-                    # agrega una nota a la lista dentro de alumnos[nombreAlumno][asign][nota]
-                    alumnos[nombreAlumno][asign].append(nota)
-                    cd.setdatos(alumnos)
-                    cd.getdatos()
-                    print(alumnos)
-                    ####  Agregar codigo para guardar lista dentro de documento json
-                    opcion = input(
-                        "nota agregada correctamente, desea agregar otra? S/N... "
-                    ).lower()
-                    if opcion == "s":
-                        continue
-                    else:
-                        break
-                else:
-                    print("Ingrese una nota valida")
-        else:
-            print("El alumno no existe")
-            break
+def eliminarAlumno():
+    print("***********************************")
+    print("********* ELIMINAR ALUMNO *********")
+    print("***********************************")
+    nombre = input("Ingrese el nombre del alumno: ")
+    if (
+        nombre.capitalize().strip() in alumnos
+    ):  # se toma el nombre agregado por teclado y se busca en el diccionario alumnos
+        alumnos.pop(
+            nombre.capitalize().strip()
+        )  # si se encuentra una coincidencia esta se elimina
+        cd.setdatos(alumnos)  # se cargan los datos a json
+        print("Alumno Eliminado")
+        cd.getdatos()  # se actualiza el diccionario alumnos
+    else:
+        print("El alumno no se encuentra registrado")

@@ -1,10 +1,13 @@
-import alumno as al
-import json
+import alumno as al, asignatura as asg, notas as nt  # importa alumnos, asignaturas y notas
 
 
 def menu():
-    while True:
-        print("========S I S T E M A   D E   N O T A S ==========")
+    while True:  # menu bucle infinito, solo se detiene al pinchar la opcion salir
+        print("*************************************")  # opciones del menu principal
+        print(
+            "********* SISTEMA DE NOTAS **********"
+        )  # Cada opcion tiene un modulo propio
+        print("*************************************")
         print("1. Alumnos")
         print("2. Notas")
         print("3. Asignaturas")
@@ -13,55 +16,71 @@ def menu():
         match opcion:
             case "1":
                 while True:
-                    print("======== MENU ALUMNOS ==========")
+                    print("**********************************")
+                    print(
+                        "********** MENU ALUMNOS **********"
+                    )  # Opciones del menu Alumnos
+                    print("**********************************")
                     print("1. Agregar Alumnos")
                     print("2. Listar Alumnos")
                     print("3. Eliminar Alumnos")
-                    print(" . Volver al menu principal")
+                    print("4. Volver al menu principal")
                     opcionAlumno = input("Ingrese una opcion: ")
                     match opcionAlumno:
                         case "1":
-                            al.agregarAlumno()
-                            break
+                            al.agregarAlumno()  # llama a metodo de la clase alumno
                         case "2":
                             al.listarAlumnos()
                         case "3":
+                            al.eliminarAlumno()
+                        case "4":
                             break
                         case _:
                             print("Opcion invalida")
             case "2":
                 while True:
-                    print("======== MENU NOTAS ==========")
+                    print("**********************************")
+                    print(
+                        "*********** MENU NOTAS ***********"
+                    )  # Opciones del menu Notas
+                    print("**********************************")
                     print("1. Agregar Notas")
                     print("2. Ver Notas")
                     print("3. Eliminar nota")
-                    # promedio = lambda l: sum(l)/len(l) if len(l) > 0 else 0
-                    # notaAlta = lambda l: max(l) if len(l) > 0 else 0
-                    # notaBaja = lambda l: min(l) if len(l) > 0 else 0
-                    print("3. Volver al menu principal")
+                    print("4. Ranking")
+                    print("5. Volver al menu principal")
                     opcioNota = input("Ingrese una opcion: ")
                     match opcioNota:
                         case "1":
-                            nombreAlumno = input("Ingrese el nombre del alumno: ")
-                            al.AgregarNotas(nombreAlumno)
+                            nt.AgregarNotas()  # llama a metodo de la clase notas
                         case "2":
-                            print(al.alumnos)
+                            nt.listarNotas()
                         case "3":
+                            nt.eliminarNota()
+                        case "4":
+                            nt.rankingNotas()  # Ranking de los promedios de mayor a menor
+                        case "5":
                             break
             case "3":
                 while True:
-                    print("======== MENU ASIGNATURAS ==========")
-                    print("1. Agregar Asignaturas")
+                    print("**********************************")
+                    print(
+                        "******** MENU ASIGNATURAS ********"
+                    )  # Opciones del menu Asignaturas
+                    print("**********************************")
+                    print("1. Agregar Asignatura")
                     print("2. Listar Asignaturas")
-                    print("3. Volver al menu principal")
+                    print("3. Eliminar Asignatura")
+                    print("4. Volver al menu principal")
                     opcionAsign = input("Ingrese una opcion: ")
                     match opcionAsign:
                         case "1":
-                            asign = input("Ingrese el Nombre de la Nueva Asignatura: ")
-                            al.nuevAsignatura(str(asign))
+                            asg.nuevAsignatura()  # llama a metodo de la clase asignaturas
                         case "2":
-                            print(al.asignaturas)
+                            asg.listarAsignaturas()
                         case "3":
+                            asg.eliminarAsignatura()
+                        case "4":
                             break
             case "4":
                 break
