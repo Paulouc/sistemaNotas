@@ -52,23 +52,31 @@ def eliminarNota():
                     print(
                         alumnos[nombreAlumno][asignatura]
                     )  # Imprime las notas segun alumno y asignatura
+                else:
+                    print("La nota no se encuentra registrada")
+            else:
+                print("Ingrese una nota valida")
+        else:
+            print("El alumno no esta cursando esa asignatura")
+    else:
+        print("El alumno no se encuentra registrado")
 
 
 def AgregarNotas():
     print("*********************************")
     print("********* AGREGAR NOTAS *********")
     print("*********************************")
-    alumnosin = list(alumnos.keys())  # Crea una lista con los nombres de los alumnos
-    nombreAlumno = (
-        input(
-            f"Alumnos: {alumnosin} \nIngrese el nombre del alumno: "
-        )  # Muestra los alumnos ingresados y solicita ingresar el nombre del alumno al que ingresara la nota
-        .capitalize()
-        .strip()
-    )
+    listado = list(alumnos.keys())  # Crea una lista con los nombres de los alumnos
     while True:
+        nombreAlumno = (
+            input(
+                f"Alumnos: {listado} \nIngrese el nombre del alumno: "
+            )  # Muestra los alumnos ingresados y solicita ingresar el nombre del alumno al que ingresara la nota
+            .capitalize()
+            .strip()
+        )
         if (
-            nombreAlumno in alumnosin
+            nombreAlumno in listado
         ):  # si el nombre ingresado por teclado esta en la lista creada con los nombres de alumnos
             asign = (
                 input(
@@ -112,9 +120,10 @@ def AgregarNotas():
                         break
                 else:
                     print("Ingrese una nota valida")
+            else:
+                print("La asignatura no se encuentra registrada")
         else:
             print("El alumno no existe")
-            break
 
 
 # función para calcular el promedio de un alumno

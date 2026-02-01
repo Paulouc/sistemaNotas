@@ -1,52 +1,35 @@
 {
     "Paulo": {
         "Matematicas": [
-            "5.5"
+            "4.6"
         ],
-        "Ciencias": [
-            "6"
+        "Fisica": [
+            "4.6"
         ],
         "Lenguaje": [
-            "5.5",
-            "4.6",
-            "4.0"
-        ],
-        "Fisica": [
-            "7"
+            "5.9"
         ]
     },
-    "Luciana": {
-        "Ciencias": [
-            "7",
-            "6.8"
-        ],
-        "Fisica": [
-            "5.5",
-            "6"
-        ],
+    "Loreto": {
         "Matematicas": [
-            "5"
-        ]
-    },
-    "Lorena": {
-        "Tecnologia": [
-            "4"
+            "6.7"
         ],
         "Fisica": [
-            "6",
-            "6"
+            "5.9"
         ],
-        "Ciencias": [
-            "6"
-        ]
-    },
-    "Gaspar": {
         "Lenguaje": [
-            "6"
+            "6.4"
+        ]
+    },
+    "Nicolas": {
+        "Matematicas": [
+            "6.7"
         ],
         "Fisica": [
-            "4.5",
-            "6.3"
+            "6.1"
+        ],
+        "Lenguaje": [
+            "4.3"
         ]
     }
 }
